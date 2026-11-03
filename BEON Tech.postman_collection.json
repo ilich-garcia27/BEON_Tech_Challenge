@@ -1,0 +1,356 @@
+{
+  "info": {
+    "_postman_id": "903f69e1-0597-48bc-b704-fcd6d84dc71c",
+    "name": "BEON Tech",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "9339960"
+  },
+  "item": [
+    {
+      "name": "Create Token",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// Validating response code.\r\n\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n\r\n    pm.collectionVariables.set(\"token\", pm.response.json().token);\r\n});\r\n\r\n// Validating request and response body.\r\n\r\npm.test(\"Request schema is correct and exists\", function () {\r\n    const schemas = JSON.parse(pm.collectionVariables.get(\"schemas\"));\r\n    const request = JSON.parse(pm.request.body.raw);\r\n\r\n    pm.expect(request).to.have.jsonSchema(schemas.AuthenticationRequestDto);\r\n});\r\n\r\npm.test(\"Response schema is correct and exists\", function () {\r\n    const schemas = JSON.parse(pm.collectionVariables.get(\"schemas\"));\r\n\r\n    pm.response.to.have.jsonSchema(schemas.AuthenticationResponseDto);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/auth",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "auth"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Booking",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// Validating response code.\r\n\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n\r\n    pm.collectionVariables.set(\"bookingid\", pm.response.json().bookingid);\r\n});\r\n\r\n// Validating request and response body.\r\n\r\npm.test(\"Request schema is correct and exists\", function () {\r\n    const schemas = JSON.parse(pm.collectionVariables.get(\"schemas\"));\r\n    const request = JSON.parse(pm.request.body.raw);\r\n\r\n    pm.expect(request).to.have.jsonSchema(schemas.CreateBookingRequestDto);\r\n});\r\n\r\npm.test(\"Response schema is correct and exists\", function () {\r\n    const schemas = JSON.parse(pm.collectionVariables.get(\"schemas\"));\r\n\r\n    pm.response.to.have.jsonSchema(schemas.CreateBookingResponseDto);\r\n});\r\n\r\npm.test(\"Data sent matches with response body\", function () {\r\n    pm.expect(JSON.parse(pm.request.body.raw)).to.eql(pm.response.json().booking);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"firstname\": \"{{$randomFirstName}}\",\r\n    \"lastname\": \"{{$randomLastName}}\",\r\n    \"totalprice\": 111,\r\n    \"depositpaid\": true,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"2026-01-01\",\r\n        \"checkout\": \"2026-02-02\"\r\n    },\r\n    \"additionalneeds\": \"Breakfast\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/booking",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "booking"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Booking",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// Validating response code.\r\n\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\n// Validating response body.\r\n\r\npm.test(\"Response schema is correct and exists\", function () {\r\n    const schemas = JSON.parse(pm.collectionVariables.get(\"schemas\"));\r\n\r\n    pm.response.to.have.jsonSchema(schemas.GetBookingResponseDto);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/booking/{{bookingid}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "booking",
+            "{{bookingid}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Booking",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// Validating response code.\r\n\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\n// Validating request and response body.\r\n\r\npm.test(\"Request schema is correct and exists\", function () {\r\n    const schemas = JSON.parse(pm.collectionVariables.get(\"schemas\"));\r\n    const request = JSON.parse(pm.request.body.raw);\r\n\r\n    pm.expect(request).to.have.jsonSchema(schemas.UpdateBookingRequestDto);\r\n});\r\n\r\npm.test(\"Response schema is correct and exists\", function () {\r\n    const schemas = JSON.parse(pm.collectionVariables.get(\"schemas\"));\r\n\r\n    pm.response.to.have.jsonSchema(schemas.UpdateBookingResponseDto);\r\n});\r\n\r\npm.test(\"Data sent matches with response body\", function () {\r\n    pm.expect(JSON.parse(pm.request.body.raw)).to.eql(pm.response.json());\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Cookie",
+            "value": "token={{token}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"firstname\": \"{{$randomFirstName}}\",\r\n    \"lastname\": \"{{$randomLastName}}\",\r\n    \"totalprice\": 222,\r\n    \"depositpaid\": false,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"2026-01-01\",\r\n        \"checkout\": \"2026-03-03\"\r\n    },\r\n    \"additionalneeds\": \"Dinner\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/booking/{{bookingid}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "booking",
+            "{{bookingid}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Booking",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// Validating response code.\r\n\r\npm.test(\"Status code is 201\", function () {\r\n    pm.response.to.have.status(201);\r\n    pm.expect(pm.response.text()).to.equal(\"Created\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Cookie",
+            "value": "token={{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/booking/{{bookingid}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "booking",
+            "{{bookingid}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Verify Deleted Booking",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// Validating response code.\r\n\r\npm.test(\"Status code is 404\", function () {\r\n    pm.response.to.have.status(404);\r\n    pm.expect(pm.response.text()).to.equal(\"Not Found\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/booking/{{bookingid}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "booking",
+            "{{bookingid}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "exec": [
+          "const definitions = {\r",
+          "    BookingItemDto: {\r",
+          "        \"required\": [\"firstname\", \"lastname\", \"totalprice\", \"depositpaid\", \"bookingdates\", \"additionalneeds\"],\r",
+          "        \"additionalProperties\": false,\r",
+          "        \"properties\": {\r",
+          "            \"firstname\": {\r",
+          "                \"type\": \"string\"\r",
+          "            },\r",
+          "            \"lastname\": {\r",
+          "                \"type\": \"string\"\r",
+          "            },\r",
+          "            \"totalprice\": {\r",
+          "                \"type\": \"number\"\r",
+          "            },\r",
+          "            \"depositpaid\": {\r",
+          "                \"type\": \"boolean\"\r",
+          "            },\r",
+          "            \"bookingdates\": {\r",
+          "                \"type\": \"object\",\r",
+          "                \"required\": [\"checkin\", \"checkout\"],\r",
+          "                \"additionalProperties\": false,\r",
+          "                \"properties\": {\r",
+          "                    \"checkin\": {\r",
+          "                        \"type\": \"string\"\r",
+          "                    },\r",
+          "                    \"checkout\": {\r",
+          "                        \"type\": \"string\"\r",
+          "                    }\r",
+          "                }\r",
+          "            },\r",
+          "            \"additionalneeds\": {\r",
+          "                \"type\": \"string\"\r",
+          "            }\r",
+          "        }\r",
+          "    }\r",
+          "}\r",
+          "\r",
+          "const schemas = {\r",
+          "    AuthenticationRequestDto: {\r",
+          "        \"type\": \"object\",\r",
+          "        \"required\": [\"username\", \"password\"],\r",
+          "        \"additionalProperties\": false,\r",
+          "        \"properties\": {\r",
+          "            \"username\": {\r",
+          "                \"type\": \"string\"\r",
+          "            },\r",
+          "            \"password\": {\r",
+          "                \"type\": \"string\"\r",
+          "            }\r",
+          "        }\r",
+          "    },\r",
+          "    AuthenticationResponseDto: {\r",
+          "        \"type\": \"object\",\r",
+          "        \"additionalProperties\": false,\r",
+          "        \"required\": [\"token\"],\r",
+          "        \"properties\": {\r",
+          "            \"token\": {\r",
+          "                \"type\": \"string\"\r",
+          "            }\r",
+          "        }\r",
+          "    },\r",
+          "    CreateBookingRequestDto: {\r",
+          "        definitions,\r",
+          "        $ref: \"#/definitions/BookingItemDto\"\r",
+          "    },\r",
+          "    CreateBookingResponseDto: {\r",
+          "        definitions,\r",
+          "        \"type\": \"object\",\r",
+          "        \"required\": [\"bookingid\", \"booking\"],\r",
+          "        \"additionalProperties\": false,\r",
+          "        \"properties\": {\r",
+          "            \"bookingid\": {\r",
+          "                \"type\": \"number\"\r",
+          "            },\r",
+          "            \"booking\": {\r",
+          "                $ref: \"#/definitions/BookingItemDto\"\r",
+          "            },\r",
+          "        }\r",
+          "    },\r",
+          "    GetBookingResponseDto: {\r",
+          "        definitions,\r",
+          "        $ref: \"#/definitions/BookingItemDto\"\r",
+          "    },\r",
+          "    UpdateBookingRequestDto: {\r",
+          "        definitions,\r",
+          "        $ref: \"#/definitions/BookingItemDto\"\r",
+          "    },\r",
+          "    UpdateBookingResponseDto: {\r",
+          "        definitions,\r",
+          "        $ref: \"#/definitions/BookingItemDto\"\r",
+          "    }\r",
+          "}\r",
+          "\r",
+          "pm.collectionVariables.set(\"schemas\", JSON.stringify(schemas));"
+        ],
+        "type": "text/javascript"
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "exec": [
+          "// Validating response time.\r",
+          "\r",
+          "pm.test(\"Response time is less than 500ms\", function () {\r",
+          "    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+          "});"
+        ],
+        "type": "text/javascript"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "schemas",
+      "value": ""
+    },
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "bookingid",
+      "value": ""
+    }
+  ]
+}

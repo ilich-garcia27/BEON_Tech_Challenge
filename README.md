@@ -80,3 +80,43 @@ package.json                   Dependencies and npm scripts
 ```
 
 Cypress saves videos, screenshots, and downloads under `cypress/`; these generated artifacts are excluded from Git.
+
+## Postman API Automation
+
+The Postman files exercise the [Restful Booker API](https://restful-booker.herokuapp.com/apidoc/index.html), independently of the Swag Labs Cypress tests. The collection covers authentication and a booking lifecycle: create, read, update, delete, then verify the deleted booking returns `404`.
+
+### Import and Configure
+
+1. In Postman, choose **Import** and import both `BEON Tech.postman_collection.json` and `BEON Tech.postman_environment.json`.
+2. Select the `BEON Tech` environment in the environment selector.
+3. Set `baseUrl` to `https://restful-booker.herokuapp.com` (without a trailing slash).
+4. Add `username` and `password` to the selected environment using credentials accepted by the target API. Environment values take precedence over the empty collection variables. Keep credentials in a private environment and do not export or commit them.
+5. To run the full flow, open the collection, choose **Run**, select the `BEON Tech` environment, and run all requests in their existing order.
+
+The requests depend on state created by earlier requests: `Create Token` stores `token`, and `Create Booking` stores `bookingid`. Run the full collection in order, or run individual requests only after their prerequisite variables have been set. The collection-level pre-request script initializes the JSON schemas used by the tests.
+
+## Bug Report
+
+### Title
+
+Selecting a product opens the details page for a different product
+
+### Description
+
+When a user selects a product from the Swag Labs inventory, the application may navigate to the details page of a different product instead of the selected one. This can cause the user to view or choose the wrong item.
+
+### Steps to Reproduce
+
+1. Open the Swag Labs application.
+2. Log in with the following test account credentials: Username - problem_user, Password - secret_sauce
+3. On the inventory page, select a product by clicking its name or image.
+4. Observe the product details page that opens.
+
+### Expected vs Actual Results
+
+- **Expected:** The details page matches the product selected from the inventory.
+- **Actual:** The details page shows a different product.
+
+### Severity
+
+**Medium:** Product navigation is incorrect and may lead users to inspect or select the wrong item, but the issue does not prevent access to the application as a whole.
