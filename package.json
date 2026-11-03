@@ -1,0 +1,28 @@
+{
+  "name": "beon_tech_challenge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test:wip:qa": "cypress open --env environment=qa --expose \"tags=@wip\"",
+    "test:e2e:qa": "cypress open --env environment=qa --expose \"tags=@e2e\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "cypress-cucumber-preprocessor": {
+    "stepDefinitions": [
+      "cypress/support/step_definitions/*.js"
+    ]
+  },
+  "devDependencies": {
+    "cypress": "^16.2.1"
+  },
+  "dependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^28.0.1",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.8",
+    "@faker-js/faker": "^10.6.0",
+    "cypress-dotenv": "^3.0.1"
+  }
+}
